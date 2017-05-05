@@ -1,0 +1,3 @@
+include ':app', ':monkey-release'
+
+project(':monkey-release').projectDir = new File(settingsDir, 'BuildSrc')
