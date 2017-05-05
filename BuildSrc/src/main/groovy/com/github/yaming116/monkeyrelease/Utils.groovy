@@ -26,9 +26,10 @@ public class Utils {
             def fileName = "$project.name-$variant.name-$versionName-${versionCode}.apk"
             variant.outputs.each { output ->
                 output.outputFile = new File(output.outputFile.parent, fileName)
+                def apkPath = output.outputFile.getAbsolutePath()
                 println "$TAG Setting $output.name variant output name to $fileName"
                 if (output.name == 'release') {
-                    println "appPath: $output.outputFile.getAbsolutePath()"
+                    println "appPath: $apkPath"
                 }
             }
         }
