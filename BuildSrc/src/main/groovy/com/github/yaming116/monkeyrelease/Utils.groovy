@@ -22,7 +22,7 @@ public class Utils {
             // first check version code and name from Gradle build script, then from AndroidManifest.xml
             def versionCode = variant.versionCode ? variant.versionCode : getVersionCode(project)
             def versionName = variant.versionName ? variant.versionName : getVersionName(project)
-            def apkDir = project.project.rootDir + File.separator + 'build' + File.separator + 'apk'
+            def apkDir = new File(project.project.rootDir, 'build' + File.separator + 'apk')
             def fileName = "$project.name-$variant.name-$versionName-${versionCode}.apk"
             variant.outputs.each { output ->
                 output.outputFile = new File(apkDir, fileName)
