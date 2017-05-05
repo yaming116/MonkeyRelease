@@ -55,8 +55,8 @@ compileGroovy {
 }
 
 
-def projectName = "MonekyRelease"
-def mavenDesc = 'MonekyRelease'
+def projectName = "MonkeyRelease"
+def mavenDesc = 'MonkeyRelease'
 def baseUrl = 'https://github.com/yaming116'
 def siteUrl = baseUrl
 def gitUrl = "${baseUrl}/MonekyRelease.git"
