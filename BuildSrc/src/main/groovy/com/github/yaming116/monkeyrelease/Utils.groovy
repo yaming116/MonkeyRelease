@@ -27,6 +27,9 @@ public class Utils {
             variant.outputs.each { output ->
                 output.outputFile = new File(output.outputFile.parent, fileName)
                 println "$TAG Setting $output.name variant output name to $fileName"
+                if (output.name == 'release') {
+                    println "appPath: $output.outputFile.getAbsolutePath()"
+                }
             }
         }
     }
