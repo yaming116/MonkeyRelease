@@ -22,8 +22,9 @@ public class Utils {
             // first check version code and name from Gradle build script, then from AndroidManifest.xml
             def versionCode = variant.versionCode ? variant.versionCode : getVersionCode(project)
             def versionName = variant.versionName ? variant.versionName : getVersionName(project)
+            def appName = appName(project)
             def apkDir = new File(project.project.rootDir, 'build' + File.separator + 'apk')
-            def fileName = "$project.name-$variant.name-$versionName-${versionCode}.apk"
+            def fileName = "$appName-$variant.name-$versionName-${versionCode}.apk"
             variant.outputs.each { output ->
                 output.outputFile = new File(apkDir, fileName)
                 def apkPath = output.outputFile.getAbsolutePath()
@@ -109,18 +110,24 @@ public class Utils {
         if (!isJenkins) {
             loadProperties(project)
         }else {
-            def rootName = project.rootProject.name
-            println("=======root project name is $rootName")
-            def appNamePrefix = System.getenv("APP_NAME_PREFIX");
-            if (appNamePrefix != null) {
-                rootName = rootName.replace(appNamePrefix, "")
-            }
-            println("=======after replace appNamePrefix is $rootName")
-            if (project.hasProperty('projectName')) {
-                rootName = project.property('projectName')
-            }
-            println("=====current project name is $rootName=====")
-            loadJsonConfig(project, rootName)
+            def appName = appName(project)
+            loadJsonConfig(project, appName)
         }
+    }
+
+    static def appName(project){
+        def rootName = project.rootProject.name
+        println("=======root project name is $rootName")
+        def appNamePrefix = System.getenv("APP_NAME_PREFIX");
+        if (appNamePrefix != null) {
+            rootName = rootName.replace(appNamePrefix, "")
+        }
+        println("=======after replace appNamePrefix is $rootName")
+        if (project.hasProperty('projectName')) {
+            rootName = project.property('projectName')
+        }
+        println("=====current project name is $rootName=====")
+
+        return rootName
     }
 }
